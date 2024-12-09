@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.st.system.mapper.StSensorMapper">
+    
+    <resultMap type="StSensor" id="StSensorResult">
+        <result property="id"    column="id"    />
+        <result property="sensorModel"    column="sensor_model"    />
+        <result property="sensorManufacturer"    column="sensor_manufacturer"    />
+        <result property="cra"    column="cra"    />
+        <result property="package"    column="package"    />
+        <result property="dieSizeL"    column="die_size_l"    />
+        <result property="dieSizeW"    column="die_size_w"    />
+        <result property="dieSizeH"    column="die_size_h"    />
+        <result property="imageAreaSizeL"    column="image_area_size_l"    />
+        <result property="imageAreaSizeW"    column="image_area_size_w"    />
+        <result property="bondindPadOpenL"    column="bondind_pad_open_l"    />
+        <result property="bondingPadOpenW"    column="bonding_pad_open_w"    />
+        <result property="ois"    column="ois"    />
+        <result property="interface"    column="interface"    />
+        <result property="isi23c"    column="isi23c"    />
+        <result property="dataFormat"    column="data_format"    />
+        <result property="usei2cSlaveid"    column="usei2c_slaveid"    />
+        <result property="supportI2cSlaveid"    column="support_i2c_slaveid"    />
+        <result property="powersupplyAvdd"    column="powersupply_avdd"    />
+        <result property="powersupplyDvdd"    column="powersupply_dvdd"    />
+        <result property="powersupplyDovdd"    column="powersupply_dovdd"    />
+        <result property="resolutionMega"    column="resolution_mega"    />
+        <result property="resolutionHv"    column="resolution_hv"    />
+        <result property="resolutionDiagonai"    column="resolution_diagonai"    />
+        <result property="resolutionPixelsize"    column="resolution_pixelsize"    />
+        <result property="powermax"    column="powermax"    />
+        <result property="framerate"    column="framerate"    />
+        <result property="sensorHbm"    column="sensor_hbm"    />
+        <result property="sensorCdm"    column="sensor_cdm"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="remark"    column="remark"    />
+        <result property="sensorPixel"    column="sensor_pixel"    />
+    </resultMap>
+
+    <sql id="selectStSensorVo">
+        select id, sensor_model, sensor_manufacturer, cra, package, die_size_l, die_size_w, die_size_h, image_area_size_l, image_area_size_w, bondind_pad_open_l, bonding_pad_open_w, ois, interface, isi23c, data_format, usei2c_slaveid, support_i2c_slaveid, powersupply_avdd, powersupply_dvdd, powersupply_dovdd, resolution_mega, resolution_hv, resolution_diagonai, resolution_pixelsize, powermax, framerate, sensor_hbm, sensor_cdm, create_time, update_time, create_by, update_by, remark, sensor_pixel from st_sensor
+    </sql>
+
+    <select id="selectStSensorList" parameterType="StSensor" resultMap="StSensorResult">
+        <include refid="selectStSensorVo"/>
+        <where>  
+            <if test="sensorModel != null  and sensorModel != ''"> and sensor_model = #{sensorModel}</if>
+            <if test="sensorManufacturer != null  and sensorManufacturer != ''"> and sensor_manufacturer = #{sensorManufacturer}</if>
+            <if test="resolutionDiagonai != null "> and resolution_diagonai = #{resolutionDiagonai}</if>
+            <if test="resolutionPixelsize != null "> and resolution_pixelsize = #{resolutionPixelsize}</if>
+            <if test="sensorPixel != null  and sensorPixel != ''"> and sensor_pixel = #{sensorPixel}</if>
+        </where>
+    </select>
+    
+    <select id="selectStSensorById" parameterType="Long" resultMap="StSensorResult">
+        <include refid="selectStSensorVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertStSensor" parameterType="StSensor" useGeneratedKeys="true" keyProperty="id">
+        insert into st_sensor
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sensorModel != null and sensorModel != ''">sensor_model,</if>
+            <if test="sensorManufacturer != null and sensorManufacturer != ''">sensor_manufacturer,</if>
+            <if test="cra != null">cra,</if>
+            <if test="package != null">package,</if>
+            <if test="dieSizeL != null">die_size_l,</if>
+            <if test="dieSizeW != null">die_size_w,</if>
+            <if test="dieSizeH != null">die_size_h,</if>
+            <if test="imageAreaSizeL != null">image_area_size_l,</if>
+            <if test="imageAreaSizeW != null">image_area_size_w,</if>
+            <if test="bondindPadOpenL != null">bondind_pad_open_l,</if>
+            <if test="bondingPadOpenW != null">bonding_pad_open_w,</if>
+            <if test="ois != null">ois,</if>
+            <if test="interface != null">interface,</if>
+            <if test="isi23c != null">isi23c,</if>
+            <if test="dataFormat != null">data_format,</if>
+            <if test="usei2cSlaveid != null">usei2c_slaveid,</if>
+            <if test="supportI2cSlaveid != null">support_i2c_slaveid,</if>
+            <if test="powersupplyAvdd != null">powersupply_avdd,</if>
+            <if test="powersupplyDvdd != null">powersupply_dvdd,</if>
+            <if test="powersupplyDovdd != null">powersupply_dovdd,</if>
+            <if test="resolutionMega != null">resolution_mega,</if>
+            <if test="resolutionHv != null">resolution_hv,</if>
+            <if test="resolutionDiagonai != null">resolution_diagonai,</if>
+            <if test="resolutionPixelsize != null">resolution_pixelsize,</if>
+            <if test="powermax != null">powermax,</if>
+            <if test="framerate != null">framerate,</if>
+            <if test="sensorHbm != null">sensor_hbm,</if>
+            <if test="sensorCdm != null">sensor_cdm,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="remark != null">remark,</if>
+            <if test="sensorPixel != null">sensor_pixel,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sensorModel != null and sensorModel != ''">#{sensorModel},</if>
+            <if test="sensorManufacturer != null and sensorManufacturer != ''">#{sensorManufacturer},</if>
+            <if test="cra != null">#{cra},</if>
+            <if test="package != null">#{package},</if>
+            <if test="dieSizeL != null">#{dieSizeL},</if>
+            <if test="dieSizeW != null">#{dieSizeW},</if>
+            <if test="dieSizeH != null">#{dieSizeH},</if>
+            <if test="imageAreaSizeL != null">#{imageAreaSizeL},</if>
+            <if test="imageAreaSizeW != null">#{imageAreaSizeW},</if>
+            <if test="bondindPadOpenL != null">#{bondindPadOpenL},</if>
+            <if test="bondingPadOpenW != null">#{bondingPadOpenW},</if>
+            <if test="ois != null">#{ois},</if>
+            <if test="interface != null">#{interface},</if>
+            <if test="isi23c != null">#{isi23c},</if>
+            <if test="dataFormat != null">#{dataFormat},</if>
+            <if test="usei2cSlaveid != null">#{usei2cSlaveid},</if>
+            <if test="supportI2cSlaveid != null">#{supportI2cSlaveid},</if>
+            <if test="powersupplyAvdd != null">#{powersupplyAvdd},</if>
+            <if test="powersupplyDvdd != null">#{powersupplyDvdd},</if>
+            <if test="powersupplyDovdd != null">#{powersupplyDovdd},</if>
+            <if test="resolutionMega != null">#{resolutionMega},</if>
+            <if test="resolutionHv != null">#{resolutionHv},</if>
+            <if test="resolutionDiagonai != null">#{resolutionDiagonai},</if>
+            <if test="resolutionPixelsize != null">#{resolutionPixelsize},</if>
+            <if test="powermax != null">#{powermax},</if>
+            <if test="framerate != null">#{framerate},</if>
+            <if test="sensorHbm != null">#{sensorHbm},</if>
+            <if test="sensorCdm != null">#{sensorCdm},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="sensorPixel != null">#{sensorPixel},</if>
+         </trim>
+    </insert>
+
+    <update id="updateStSensor" parameterType="StSensor">
+        update st_sensor
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sensorModel != null and sensorModel != ''">sensor_model = #{sensorModel},</if>
+            <if test="sensorManufacturer != null and sensorManufacturer != ''">sensor_manufacturer = #{sensorManufacturer},</if>
+            <if test="cra != null">cra = #{cra},</if>
+            <if test="package != null">package = #{package},</if>
+            <if test="dieSizeL != null">die_size_l = #{dieSizeL},</if>
+            <if test="dieSizeW != null">die_size_w = #{dieSizeW},</if>
+            <if test="dieSizeH != null">die_size_h = #{dieSizeH},</if>
+            <if test="imageAreaSizeL != null">image_area_size_l = #{imageAreaSizeL},</if>
+            <if test="imageAreaSizeW != null">image_area_size_w = #{imageAreaSizeW},</if>
+            <if test="bondindPadOpenL != null">bondind_pad_open_l = #{bondindPadOpenL},</if>
+            <if test="bondingPadOpenW != null">bonding_pad_open_w = #{bondingPadOpenW},</if>
+            <if test="ois != null">ois = #{ois},</if>
+            <if test="interface != null">interface = #{interface},</if>
+            <if test="isi23c != null">isi23c = #{isi23c},</if>
+            <if test="dataFormat != null">data_format = #{dataFormat},</if>
+            <if test="usei2cSlaveid != null">usei2c_slaveid = #{usei2cSlaveid},</if>
+            <if test="supportI2cSlaveid != null">support_i2c_slaveid = #{supportI2cSlaveid},</if>
+            <if test="powersupplyAvdd != null">powersupply_avdd = #{powersupplyAvdd},</if>
+            <if test="powersupplyDvdd != null">powersupply_dvdd = #{powersupplyDvdd},</if>
+            <if test="powersupplyDovdd != null">powersupply_dovdd = #{powersupplyDovdd},</if>
+            <if test="resolutionMega != null">resolution_mega = #{resolutionMega},</if>
+            <if test="resolutionHv != null">resolution_hv = #{resolutionHv},</if>
+            <if test="resolutionDiagonai != null">resolution_diagonai = #{resolutionDiagonai},</if>
+            <if test="resolutionPixelsize != null">resolution_pixelsize = #{resolutionPixelsize},</if>
+            <if test="powermax != null">powermax = #{powermax},</if>
+            <if test="framerate != null">framerate = #{framerate},</if>
+            <if test="sensorHbm != null">sensor_hbm = #{sensorHbm},</if>
+            <if test="sensorCdm != null">sensor_cdm = #{sensorCdm},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="sensorPixel != null">sensor_pixel = #{sensorPixel},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteStSensorById" parameterType="Long">
+        delete from st_sensor where id = #{id}
+    </delete>
+
+    <delete id="deleteStSensorByIds" parameterType="String">
+        delete from st_sensor where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
